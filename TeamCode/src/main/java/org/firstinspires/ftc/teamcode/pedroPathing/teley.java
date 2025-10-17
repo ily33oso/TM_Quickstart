@@ -9,17 +9,17 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-
+@Disabled
 @TeleOp
 public class teley extends OpMode{
 
 
-    DcMotor fl,bl,fr,br;
+    DcMotor fl,bl,fr,br = null;
 
-    DcMotor lwheel, rwheel, intake;
+    DcMotor lwheel, rwheel, intake = null;
 
     double forward, strafe, rotate;
-    private IMU imu;
+    public IMU imu;
 
     @Override
     public void init() {
