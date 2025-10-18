@@ -13,24 +13,29 @@ import java.util.concurrent.TimeUnit;
 
 @TeleOp
 public class brandonsTeleOp extends LinearOpMode {
-    DcMotor FR;
-    DcMotor FL;
-    DcMotor BL;
-    DcMotor BR;
+    DcMotor fr;
+    DcMotor fl;
+    DcMotor bl;
+    DcMotor br;
+    DcMotor lwheel, rwheel, intake;
     BNO055IMU imu;
+
     @Override
     public void runOpMode() {
         // Declare our motors
         // Make sure your ID's match your configuration
-        BR = hardwareMap.dcMotor.get("BR");
-        BL = hardwareMap.dcMotor.get("BL");
-        FR = hardwareMap.dcMotor.get("FR");
-        FL = hardwareMap.dcMotor.get("FL");
+        br = hardwareMap.dcMotor.get("br");
+        bl = hardwareMap.dcMotor.get("bl");
+        fr = hardwareMap.dcMotor.get("fr");
+        fl = hardwareMap.dcMotor.get("fl");
+        lwheel = hardwareMap.dcMotor.get("lwheel");
+        rwheel = hardwareMap.dcMotor.get("rwheel");
+        intake = hardwareMap.dcMotor.get("intake");
 
-        FR.setDirection(DcMotor.Direction.REVERSE);
-        FL.setDirection(DcMotor.Direction.FORWARD);
-        BR.setDirection(DcMotor.Direction.REVERSE);
-        BL.setDirection(DcMotor.Direction.FORWARD);
+        fr.setDirection(DcMotor.Direction.REVERSE);
+        fl.setDirection(DcMotor.Direction.FORWARD);
+        br.setDirection(DcMotor.Direction.REVERSE);
+        bl.setDirection(DcMotor.Direction.FORWARD);
 
         Deadline gamepadRateLimit = new Deadline(500, TimeUnit.MILLISECONDS);
 
@@ -65,11 +70,34 @@ public class brandonsTeleOp extends LinearOpMode {
             double adjustedLx = -ly * Math.sin(heading) + lx * Math.cos(heading);
             double adjustedLy = ly * Math.cos(heading) + lx * Math.sin(heading);
 
-            BR.setPower(((adjustedLy - adjustedLx + rx) / max) * drivePower);
-            BL.setPower(((adjustedLy + adjustedLx - rx) / max) * drivePower);
-            FR.setPower(((adjustedLy + adjustedLx + rx) / max) * drivePower);
-            FL.setPower(((adjustedLy - adjustedLx - rx) / max) * drivePower);
+            br.setPower(((adjustedLy - adjustedLx + rx) / max) * drivePower);
+            bl.setPower(((adjustedLy + adjustedLx - rx) / max) * drivePower);
+            fr.setPower(((adjustedLy + adjustedLx + rx) / max) * drivePower);
+            fl.setPower(((adjustedLy - adjustedLx - rx) / max) * drivePower);
             //what the sigma - Joel
+        }
+        // vacuum in and get balls
+        if (gamepad2.x) {
+            rwheel.setPower(1);
+            lwheel.setPower(-1);
+            intake.setPower(1);
+
+        } else {
+            rwheel.setPower(0);
+            lwheel.setPower(0);
+            intake.setPower(0);
+        }
+        //outakes ball
+        if (gamepad2.b) {
+            rwheel.setPower(-1);
+            lwheel.setPower(1);
+            intake.setPower(-1);
+        } else {
+            rwheel.setPower(0);
+            lwheel.setPower(0);
+            intake.setPower(0);
         }
     }
 }
+
+
