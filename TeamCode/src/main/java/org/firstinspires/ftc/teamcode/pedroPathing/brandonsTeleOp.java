@@ -51,13 +51,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  *
  */
 @TeleOp(name = "brandonsTeleOp", group = "Robot")
-@Disabled
 public class brandonsTeleOp extends OpMode {
     // This declares the four motors needed
-    DcMotor fl;
-    DcMotor fr;
-    DcMotor bl;
-    DcMotor br, lwheel, rwheel, intake;
+    DcMotor fl = null;
+    DcMotor fr = null;
+    DcMotor bl = null;
+    DcMotor br, lwheel, rwheel, intake = null;
 
     // This declares the IMU needed to get the current direction the robot is facing
     IMU imu;
@@ -114,8 +113,6 @@ public class brandonsTeleOp extends OpMode {
             driveFieldRelative(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
 
-
-
         if (gamepad2.a) {
             intake.setPower(.5);
         } else {
@@ -145,12 +142,10 @@ public class brandonsTeleOp extends OpMode {
         }
 
 
-
-
     }
 
     // This routine drives the robot field relative
-    private void driveFieldRelative(double forward, double right, double rotate) {
+    private void driveFieldRelative (double forward, double right, double rotate) {
         // First, convert direction being asked to drive to polar coordinates
         double theta = Math.atan2(forward, right);
         double r = Math.hypot(right, forward);
@@ -168,7 +163,7 @@ public class brandonsTeleOp extends OpMode {
     }
 
     // Thanks to FTC16072 for sharing this code!!
-    public void drive(double forward, double right, double rotate) {
+    public void drive (double forward, double right, double rotate) {
         // This calculates the power needed for each wheel based on the amount of forward,
         // strafe right, and rotate
         double frontLeftPower = forward + right + rotate;
