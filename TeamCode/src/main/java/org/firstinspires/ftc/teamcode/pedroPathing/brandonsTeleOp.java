@@ -57,7 +57,7 @@ public class brandonsTeleOp extends OpMode {
     DcMotor fl;
     DcMotor fr;
     DcMotor bl;
-    DcMotor br;
+    DcMotor br, lwheel, rwheel, intake;
 
     // This declares the IMU needed to get the current direction the robot is facing
     IMU imu;
@@ -113,6 +113,40 @@ public class brandonsTeleOp extends OpMode {
         } else {
             driveFieldRelative(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
+
+
+
+        if (gamepad2.a) {
+            intake.setPower(.5);
+        } else {
+            intake.setPower(0);
+        }
+
+        if(gamepad2.y) {
+            intake.setPower(-.5);
+        } else {
+            intake.setPower(0);
+        }
+
+
+        if (gamepad2.b) {
+            lwheel.setPower(-1);
+            rwheel.setPower(-1);
+        } else {
+            lwheel.setPower(0);
+            rwheel.setPower(0);
+        }
+        if (gamepad2.x) {
+            lwheel.setPower(1);
+            rwheel.setPower(1);
+        } else {
+            lwheel.setPower(0);
+            rwheel.setPower(0);
+        }
+
+
+
+
     }
 
     // This routine drives the robot field relative
