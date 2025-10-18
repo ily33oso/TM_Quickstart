@@ -14,6 +14,7 @@ public class stright extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         {
+            //idk if it will work
             fr=hardwareMap.dcMotor.get("fr");
             bl=hardwareMap.dcMotor.get("bl");
             br=hardwareMap.dcMotor.get("br");
