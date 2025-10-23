@@ -20,10 +20,10 @@ public class stright extends LinearOpMode {
             br=hardwareMap.dcMotor.get("br");
             fl=hardwareMap.dcMotor.get("fl");
             waitForStart();
-            fl.setPower(-0.50);
-            bl.setPower(-0.50);
-            fr.setPower(0.50);
-            br.setPower(0.50);
+            fl.setPower(0.35);
+            bl.setPower(0.35);
+            fr.setPower(0.35);
+            br.setPower(0.35);
             sleep(1500);
         }
     }

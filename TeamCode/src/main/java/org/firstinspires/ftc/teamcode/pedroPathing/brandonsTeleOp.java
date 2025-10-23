@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -32,9 +33,9 @@ public class brandonsTeleOp extends LinearOpMode {
         rwheel = hardwareMap.dcMotor.get("rwheel");
         intake = hardwareMap.dcMotor.get("intake");
 
-        fr.setDirection(DcMotor.Direction.REVERSE);
+        fr.setDirection(DcMotor.Direction.FORWARD);
         fl.setDirection(DcMotor.Direction.FORWARD);
-        br.setDirection(DcMotor.Direction.REVERSE);
+        br.setDirection(DcMotor.Direction.FORWARD);
         bl.setDirection(DcMotor.Direction.FORWARD);
 
         Deadline gamepadRateLimit = new Deadline(500, TimeUnit.MILLISECONDS);
@@ -43,7 +44,7 @@ public class brandonsTeleOp extends LinearOpMode {
         IMU imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
@@ -61,7 +62,7 @@ public class brandonsTeleOp extends LinearOpMode {
 
             double drivePower = 0.8 - (0.6 * gamepad1.right_trigger);
 
-            if (gamepadRateLimit.hasExpired() && gamepad1.a) {
+            if (gamepadRateLimit.hasExpired() && gamepad1.y) {
                 imu.resetYaw();
                 gamepadRateLimit.reset();
             }
@@ -70,32 +71,33 @@ public class brandonsTeleOp extends LinearOpMode {
             double adjustedLx = -ly * Math.sin(heading) + lx * Math.cos(heading);
             double adjustedLy = ly * Math.cos(heading) + lx * Math.sin(heading);
 
-            br.setPower(((adjustedLy - adjustedLx + rx) / max) * drivePower);
-            bl.setPower(((adjustedLy + adjustedLx - rx) / max) * drivePower);
-            fr.setPower(((adjustedLy + adjustedLx + rx) / max) * drivePower);
-            fl.setPower(((adjustedLy - adjustedLx - rx) / max) * drivePower);
+            br.setPower(((adjustedLy - adjustedLx - rx) / max) * drivePower);
+            bl.setPower(((adjustedLy + adjustedLx + rx) / max) * drivePower);
+            fr.setPower(((adjustedLy + adjustedLx - rx) / max) * drivePower);
+            fl.setPower(((adjustedLy - adjustedLx + rx) / max) * drivePower);
             //what the sigma - Joel
-        }
-        // vacuum in and get balls
-        if (gamepad2.x) {
-            rwheel.setPower(1);
-            lwheel.setPower(-1);
-            intake.setPower(1);
 
-        } else {
-            rwheel.setPower(0);
-            lwheel.setPower(0);
-            intake.setPower(0);
-        }
-        //outakes ball
-        if (gamepad2.b) {
-            rwheel.setPower(-1);
-            lwheel.setPower(1);
-            intake.setPower(-1);
-        } else {
-            rwheel.setPower(0);
-            lwheel.setPower(0);
-            intake.setPower(0);
+            // vacuum in and get balls
+            if (gamepad2.x) {
+                rwheel.setPower(1);
+                lwheel.setPower(-1);
+                intake.setPower(-1);
+
+            } else {
+                rwheel.setPower(0);
+                lwheel.setPower(0);
+                intake.setPower(0);
+            }
+            //outakes ball
+            if (gamepad2.b) {
+                rwheel.setPower(-1);
+                lwheel.setPower(1);
+                intake.setPower(1);
+            } else {
+                rwheel.setPower(0);
+                lwheel.setPower(0);
+                intake.setPower(0);
+            }
         }
     }
 }

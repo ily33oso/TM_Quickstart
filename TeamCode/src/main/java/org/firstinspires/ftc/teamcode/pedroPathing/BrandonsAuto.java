@@ -61,8 +61,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Autonomous(name="auto", group="Robot")
-public class auto extends LinearOpMode {
+@Autonomous(name="auto2", group="Robot")
+public class BrandonsAuto extends LinearOpMode {
 
     /* Declare OpMode members. */
     private DcMotor fl = null;
@@ -99,7 +99,7 @@ public class auto extends LinearOpMode {
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
         fl.setDirection(DcMotor.Direction.FORWARD);
         fr.setDirection(DcMotor.Direction.FORWARD);
-        bl.setDirection(DcMotor.Direction.REVERSE);
+        bl.setDirection(DcMotor.Direction.FORWARD);
         br.setDirection(DcMotor.Direction.FORWARD);
 
 
@@ -114,7 +114,7 @@ public class auto extends LinearOpMode {
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Starting at",  "%7d :%7d",
+        telemetry.addData("Starting at",  "%7d :%7d :%7d :%7d",
                 fl.getCurrentPosition(),
                 fr.getCurrentPosition(),
                 bl.getCurrentPosition(),
@@ -126,9 +126,9 @@ public class auto extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  48,  48,48,  48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(TURN_SPEED,   12, -12,12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(DRIVE_SPEED, -24, -24,-24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(.5,  8,  8,8,  8, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(TURN_SPEED,   2, -2,2, -2, 3.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(.5, -4, -4,-4, -4, 3.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -159,8 +159,8 @@ public class auto extends LinearOpMode {
             newBRTarget = br.getCurrentPosition() + (int)(brInches * COUNTS_PER_INCH);
             fl.setTargetPosition(newFLTarget);
             fr.setTargetPosition(newFRTarget);
-            bl.setTargetPosition(newFLTarget);
-            br.setTargetPosition(newFRTarget);
+            bl.setTargetPosition(newBLTarget);
+            br.setTargetPosition(newBRTarget);
 
             // Turn On RUN_TO_POSITION
             fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
