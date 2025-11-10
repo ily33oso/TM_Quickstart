@@ -56,9 +56,9 @@ import java.util.Locale;
  *
  * In OnBot Java, use "Add File" to add this OpMode from the list of Samples.
  */
-
-@TeleOp(name = "Utility: Camera Frame Capture", group = "Utility")
 @Disabled
+@TeleOp(name = "Utility: Camera Frame Capture", group = "Utility")
+
 public class UtilityCameraFrameCapture extends LinearOpMode
 {
     /*
@@ -83,6 +83,7 @@ public class UtilityCameraFrameCapture extends LinearOpMode
         {
             portal = new VisionPortal.Builder()
                     .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
+                    .enableLiveView(true)  // ✅ This ensures the camera preview shows on the Driver Hub
                     .setCameraResolution(new Size(RESOLUTION_WIDTH, RESOLUTION_HEIGHT))
                     .build();
         }

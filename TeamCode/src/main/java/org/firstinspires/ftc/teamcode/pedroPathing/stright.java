@@ -13,6 +13,11 @@ public class stright extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+
+        // this code works when starting from the small triangle,  DONT USE FOR BIG TRIANGLE
+
+
         {
             //idk if it will work
             fr=hardwareMap.dcMotor.get("fr");
@@ -20,7 +25,7 @@ public class stright extends LinearOpMode {
             br=hardwareMap.dcMotor.get("br");
             fl=hardwareMap.dcMotor.get("fl");
             waitForStart();
-            fl.setPower(0.35);
+            fl.setPower(-0.35);
             bl.setPower(0.35);
             fr.setPower(0.35);
             br.setPower(0.35);

@@ -1,78 +1,80 @@
 package org.firstinspires.ftc.teamcode.pedroPathing;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp
 public class test extends OpMode {
 
-   // DcMotor lwheel, rwheel, intake, fr, fl, br, bl;
+   // DcMotor fr, fl, br, bl;
     Servo lscoop, rscoop;
-    DcMotor lwheel, rwheel, intake;
+    DcMotor lwheel, rwheel, intakes;
 
     @Override
     public void init() {
-       /*
-        lwheel = hardwareMap.dcMotor.get("lwheel");
-        rwheel = hardwareMap.dcMotor.get("rwheel");
-        intake = hardwareMap.dcMotor.get("intake");
-        br = hardwareMap.dcMotor.get("br");
-        bl = hardwareMap.dcMotor.get("bl");
-        fr = hardwareMap.dcMotor.get("fr");
-        fl = hardwareMap.dcMotor.get("fl");
-
-
-*/
 
         lwheel = hardwareMap.dcMotor.get("lwheel");
         rwheel = hardwareMap.dcMotor.get("rwheel");
-        intake = hardwareMap.dcMotor.get("intake");
+        intakes = hardwareMap.dcMotor.get("intakes");
 
 
         lwheel.setDirection(DcMotor.Direction.REVERSE);
         rwheel.setDirection(DcMotor.Direction.FORWARD);
-        intake.setDirection(DcMotor.Direction.FORWARD);
+        intakes.setDirection(DcMotor.Direction.FORWARD);
 
 
 
+       /*
         lscoop = hardwareMap.servo.get("lscoop");
         rscoop = hardwareMap.servo.get("rscoop");
 
 
         lscoop.setDirection(Servo.Direction.FORWARD); // clockwise
         rscoop.setDirection(Servo.Direction.REVERSE);
-
+        */
     }
 
     @Override
     public void loop() {
-      if (gamepad2.b) {
-          rscoop.setPosition(1);
-          lscoop.setPosition(1.01);
+
+        /*
+        if (gamepad2.b) {
+          rscoop.setPosition(.70);
+          lscoop.setPosition(.75);
       } else {
           rscoop.setPosition(0);
-          lscoop.setPosition(.01);
+          lscoop.setPosition(0);
       }
 
+    */
+
       if (gamepad2.a) {
-          rwheel.setPower(1);
-          lwheel.setPower(1);
+          rwheel.setPower(.5);
+          lwheel.setPower(.5);
+          telemetry.log().add(String.valueOf(rwheel.getController().getMotorPower(3)));
+          //telemetry.log().add(String.valueOf(rwheel.getPowerFloat()));
+          //System.out.println(rwheel.getPowerFloat());
+
       } else {
           rwheel.setPower(0);
           lwheel.setPower(0);
       }
 
       if (gamepad2.y) {
-          intake.setPower(1);
+          intakes.setPower(1);
       } else {
-          intake.setPower(0);
+          intakes.setPower(0);
       }
 
+
+        if (gamepad2.x) {
+            intakes.setPower(-.15);
+        } else {
+            intakes.setPower(0);
+        }
 
 
 
