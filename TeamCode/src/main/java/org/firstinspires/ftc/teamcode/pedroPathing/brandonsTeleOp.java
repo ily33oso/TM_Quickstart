@@ -3,6 +3,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -15,12 +16,13 @@ import java.util.concurrent.TimeUnit;
 
 @TeleOp
 public class brandonsTeleOp extends LinearOpMode {
-    DcMotor fr;
-    DcMotor fl;
-    DcMotor bl;
-    DcMotor br;
-    DcMotor lwheel, rwheel, intake;
-    Servo lscoop,rscoop;
+    DcMotor fr,fl,bl,br; //chasis
+
+    DcMotor lwheel, rwheel, intakes; //mechanism
+    CRServo lspin, rspin;// mechanism
+
+
+    //Servo lscoop,rscoop;
     BNO055IMU imu;
 
     @Override
@@ -34,21 +36,28 @@ public class brandonsTeleOp extends LinearOpMode {
 
         lwheel = hardwareMap.dcMotor.get("lwheel");
         rwheel = hardwareMap.dcMotor.get("rwheel");
-        intake = hardwareMap.dcMotor.get("intake");
+        intakes = hardwareMap.dcMotor.get("intakes");
 
 
         lwheel.setDirection(DcMotor.Direction.REVERSE);
         rwheel.setDirection(DcMotor.Direction.FORWARD);
-        intake.setDirection(DcMotor.Direction.FORWARD);
+        intakes.setDirection(DcMotor.Direction.FORWARD);
+
+        lspin = hardwareMap.crservo.get("lspin");
+        rspin = hardwareMap.crservo.get("rspin");
+
+        lspin.setDirection(CRServo.Direction.FORWARD);
+        rspin.setDirection(CRServo.Direction.REVERSE);
 
 
-
+/*
         lscoop = hardwareMap.servo.get("lscoop");
         rscoop = hardwareMap.servo.get("rscoop");
 
 
         lscoop.setDirection(Servo.Direction.FORWARD); // clockwise
         rscoop.setDirection(Servo.Direction.REVERSE);
+*/
 
         fr.setDirection(DcMotor.Direction.FORWARD);
         fl.setDirection(DcMotor.Direction.REVERSE);
@@ -93,7 +102,7 @@ public class brandonsTeleOp extends LinearOpMode {
             fr.setPower(((adjustedLy + adjustedLx - rx) / max) * drivePower);
             fl.setPower(((adjustedLy - adjustedLx + rx) / max) * drivePower);
             //what the sigma - Joel
-
+/*
             if (gamepad2.b) {
                 rscoop.setPosition(.70);
                 lscoop.setPosition(.75);
@@ -101,6 +110,16 @@ public class brandonsTeleOp extends LinearOpMode {
                 rscoop.setPosition(0);
                 lscoop.setPosition(0);
             }
+*/
+
+            if (gamepad2.b) {
+                lspin.setPower(1);
+                rspin.setPower(1);
+            } else {
+                lspin.setPower(0);
+                rspin.setPower(0);
+            }
+
 
             if (gamepad2.a) {
                 rwheel.setPower(.97);
@@ -115,16 +134,16 @@ public class brandonsTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.y) {
-                intake.setPower(1);
+                intakes.setPower(1);
             } else {
-                intake.setPower(0);
+                intakes.setPower(0);
             }
 
 
             if (gamepad2.x) {
-                intake.setPower(-.15);
+                intakes.setPower(-.15);
             } else {
-                intake.setPower(0);
+                intakes.setPower(0);
             }
 
 

@@ -3,29 +3,36 @@ package org.firstinspires.ftc.teamcode.pedroPathing;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp
 public class test extends OpMode {
 
    // DcMotor fr, fl, br, bl;
-    Servo lscoop, rscoop;
-    DcMotor lwheel, rwheel, intakes;
+   // Servo lscoop, rscoop; //270 degrees
+    //CRServo lspin, rspin; //360 degrees
+    DcMotor lwheel, rwheel, intake;
 
     @Override
     public void init() {
 
         lwheel = hardwareMap.dcMotor.get("lwheel");
         rwheel = hardwareMap.dcMotor.get("rwheel");
-        intakes = hardwareMap.dcMotor.get("intakes");
+        intake = hardwareMap.dcMotor.get("intake");
 
 
         lwheel.setDirection(DcMotor.Direction.REVERSE);
         rwheel.setDirection(DcMotor.Direction.FORWARD);
-        intakes.setDirection(DcMotor.Direction.FORWARD);
+        intake.setDirection(DcMotor.Direction.FORWARD);
 
+/*
+        lspin = hardwareMap.crservo.get("lspin");
+        rspin = hardwareMap.crservo.get("rspin");
 
+        lspin.setDirection(CRServo.Direction.FORWARD);
+        rspin.setDirection(CRServo.Direction.REVERSE);
+
+*/
 
        /*
         lscoop = hardwareMap.servo.get("lscoop");
@@ -51,9 +58,10 @@ public class test extends OpMode {
 
     */
 
+
       if (gamepad2.a) {
-          rwheel.setPower(.5);
-          lwheel.setPower(.5);
+          rwheel.setPower(.7);
+          lwheel.setPower(.70);
           telemetry.log().add(String.valueOf(rwheel.getController().getMotorPower(3)));
           //telemetry.log().add(String.valueOf(rwheel.getPowerFloat()));
           //System.out.println(rwheel.getPowerFloat());
@@ -63,17 +71,28 @@ public class test extends OpMode {
           lwheel.setPower(0);
       }
 
-      if (gamepad2.y) {
-          intakes.setPower(1);
+/*
+      if (gamepad2.b) {
+          lspin.setPower(1);
+          rspin.setPower(1);
       } else {
-          intakes.setPower(0);
+          lspin.setPower(0);
+          rspin.setPower(0);
+      }
+
+*/
+
+      if (gamepad2.y) {
+          intake.setPower(1);
+      } else {
+          intake.setPower(0);
       }
 
 
         if (gamepad2.x) {
-            intakes.setPower(-.15);
+            intake.setPower(-.15);
         } else {
-            intakes.setPower(0);
+            intake.setPower(0);
         }
 
 
