@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp
@@ -12,6 +13,10 @@ public class test extends OpMode {
    // Servo lscoop, rscoop; //270 degrees
     //CRServo lspin, rspin; //360 degrees
     DcMotor lwheel, rwheel, intake;
+
+    Servo lstopper, rstopper;
+
+
 
     @Override
     public void init() {
@@ -24,6 +29,15 @@ public class test extends OpMode {
         lwheel.setDirection(DcMotor.Direction.REVERSE);
         rwheel.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(DcMotor.Direction.FORWARD);
+
+
+        lstopper=hardwareMap.servo.get("lstopper");
+        rstopper=hardwareMap.servo.get("rstopper");
+
+
+        lstopper.setDirection(Servo.Direction.FORWARD);
+        rstopper.setDirection(Servo.Direction.REVERSE);
+
 
 /*
         lspin = hardwareMap.crservo.get("lspin");
@@ -57,6 +71,16 @@ public class test extends OpMode {
       }
 
     */
+
+
+        if (gamepad2.b) {
+            rstopper.setPosition(.70);
+            lstopper.setPosition(.70);
+        } else {
+            rstopper.setPosition(0);
+            lstopper.setPosition(0);
+        }
+
 
 
       if (gamepad2.a) {
