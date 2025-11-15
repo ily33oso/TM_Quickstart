@@ -3,9 +3,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -18,8 +16,9 @@ import java.util.concurrent.TimeUnit;
 public class brandonsTeleOp extends LinearOpMode {
     DcMotor fr,fl,bl,br; //chasis
 
-    DcMotor lwheel, rwheel, intakes; //mechanism
-    CRServo lspin, rspin;// mechanism
+    DcMotor lwheel, rwheel, intake; //mechanism
+    //CRServo lspin, rspin;// mechanism
+    Servo rstopper;
 
 
     //Servo lscoop,rscoop;
@@ -29,25 +28,27 @@ public class brandonsTeleOp extends LinearOpMode {
     public void runOpMode() {
         // Declare our motors
         // Make sure your ID's match your configuration
-        br = hardwareMap.dcMotor.get("br");
-        bl = hardwareMap.dcMotor.get("bl");
-        fr = hardwareMap.dcMotor.get("fr");
-        fl = hardwareMap.dcMotor.get("fl");
+        br = hardwareMap.dcMotor.get("br");//3 control, red, motor
+        bl = hardwareMap.dcMotor.get("bl");//2 control, orange, motor
+        fr = hardwareMap.dcMotor.get("fr");//1 control, black, motor
+        fl = hardwareMap.dcMotor.get("fl");//0 control, pink, motor
 
-        lwheel = hardwareMap.dcMotor.get("lwheel");
-        rwheel = hardwareMap.dcMotor.get("rwheel");
-        intakes = hardwareMap.dcMotor.get("intakes");
+        lwheel = hardwareMap.dcMotor.get("lwheel");// teal crown, 3 on expansion, motor
+        rwheel = hardwareMap.dcMotor.get("rwheel");// pink bow, 2 on expansion, motor
+        intake = hardwareMap.dcMotor.get("intake");//1 on expansion, motor
+        rstopper=hardwareMap.servo.get("rstopper");//0 on expansion, servo
 
 
         lwheel.setDirection(DcMotor.Direction.REVERSE);
         rwheel.setDirection(DcMotor.Direction.FORWARD);
-        intakes.setDirection(DcMotor.Direction.FORWARD);
+        intake.setDirection(DcMotor.Direction.FORWARD);
+        rstopper.setDirection(Servo.Direction.FORWARD);
 
-        lspin = hardwareMap.crservo.get("lspin");
-        rspin = hardwareMap.crservo.get("rspin");
+     //   lspin = hardwareMap.crservo.get("lspin");
+       // rspin = hardwareMap.crservo.get("rspin");
 
-        lspin.setDirection(CRServo.Direction.FORWARD);
-        rspin.setDirection(CRServo.Direction.REVERSE);
+        //lspin.setDirection(CRServo.Direction.FORWARD);
+        //rspin.setDirection(CRServo.Direction.REVERSE);
 
 
 /*
@@ -111,7 +112,7 @@ public class brandonsTeleOp extends LinearOpMode {
                 lscoop.setPosition(0);
             }
 */
-
+/*
             if (gamepad2.b) {
                 lspin.setPower(1);
                 rspin.setPower(1);
@@ -119,7 +120,7 @@ public class brandonsTeleOp extends LinearOpMode {
                 lspin.setPower(0);
                 rspin.setPower(0);
             }
-
+*/
 
             if (gamepad2.a) {
                 rwheel.setPower(.97);
@@ -134,16 +135,24 @@ public class brandonsTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.y) {
-                intakes.setPower(1);
+                intake.setPower(1);
             } else {
-                intakes.setPower(0);
+                intake.setPower(0);
             }
 
 
             if (gamepad2.x) {
-                intakes.setPower(-.15);
+                intake.setPower(-.15);
             } else {
-                intakes.setPower(0);
+                intake.setPower(0);
+            }
+
+            if (gamepad2.b) {
+                rstopper.setPosition(.70);
+
+            } else {
+                rstopper.setPosition(0);
+
             }
 
 

@@ -14,7 +14,7 @@ public class test extends OpMode {
     //CRServo lspin, rspin; //360 degrees
     DcMotor lwheel, rwheel, intake;
 
-    Servo lstopper, rstopper;
+    Servo rstopper, rscooper;
 
 
 
@@ -31,12 +31,12 @@ public class test extends OpMode {
         intake.setDirection(DcMotor.Direction.FORWARD);
 
 
-        lstopper=hardwareMap.servo.get("lstopper");
         rstopper=hardwareMap.servo.get("rstopper");
+        rscooper=hardwareMap.servo.get("rscooper");//1
 
 
-        lstopper.setDirection(Servo.Direction.FORWARD);
-        rstopper.setDirection(Servo.Direction.REVERSE);
+        rstopper.setDirection(Servo.Direction.FORWARD);
+        rscooper.setDirection(Servo.Direction.REVERSE);
 
 
 /*
@@ -75,10 +75,19 @@ public class test extends OpMode {
 
         if (gamepad2.b) {
             rstopper.setPosition(.70);
-            lstopper.setPosition(.70);
+
         } else {
             rstopper.setPosition(0);
-            lstopper.setPosition(0);
+
+        }
+
+
+        if (gamepad2.left_bumper) {
+            rscooper.setPosition(1);
+
+        } else {
+            rscooper.setPosition(0);
+
         }
 
 
