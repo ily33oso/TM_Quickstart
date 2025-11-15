@@ -12,7 +12,7 @@ public class forward extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        //this shoulg work for the big triangle, its enough to leave the tape
+        //this should work for the big triangle, its enough to leave the tape
 
         fr=hardwareMap.dcMotor.get("fr");
         bl=hardwareMap.dcMotor.get("bl");

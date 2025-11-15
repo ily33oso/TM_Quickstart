@@ -18,25 +18,26 @@ public class brandonsTeleOp extends LinearOpMode {
 
     DcMotor lwheel, rwheel, intake; //mechanism
     //CRServo lspin, rspin;// mechanism
-    Servo rstopper;
+    Servo rstopper;//mechanism
 
 
     //Servo lscoop,rscoop;
     BNO055IMU imu;
+    //BN0055IMUNew imu;
 
     @Override
     public void runOpMode() {
         // Declare our motors
         // Make sure your ID's match your configuration
-        br = hardwareMap.dcMotor.get("br");//3 control, red, motor
+        br = hardwareMap.dcMotor.get("br");//1 control, red, motor
         bl = hardwareMap.dcMotor.get("bl");//2 control, orange, motor
-        fr = hardwareMap.dcMotor.get("fr");//1 control, black, motor
+        fr = hardwareMap.dcMotor.get("fr");//3 control, black, motor
         fl = hardwareMap.dcMotor.get("fl");//0 control, pink, motor
 
         lwheel = hardwareMap.dcMotor.get("lwheel");// teal crown, 3 on expansion, motor
         rwheel = hardwareMap.dcMotor.get("rwheel");// pink bow, 2 on expansion, motor
         intake = hardwareMap.dcMotor.get("intake");//1 on expansion, motor
-        rstopper=hardwareMap.servo.get("rstopper");//0 on expansion, servo
+        rstopper=hardwareMap.servo.get("rstopper");//0 on control, servo
 
 
         lwheel.setDirection(DcMotor.Direction.REVERSE);
@@ -123,12 +124,12 @@ public class brandonsTeleOp extends LinearOpMode {
 */
 
             if (gamepad2.a) {
-                rwheel.setPower(.97);
+                rwheel.setPower(.8);
 
                 telemetry.log().add(String.valueOf(rwheel.getController().getMotorPower(3)));
                 //telemetry.log().add(String.valueOf(rwheel.getPowerFloat()));
                 //System.out.println(rwheel.getPowerFloat());
-                lwheel.setPower(.97);
+                lwheel.setPower(.8);
             } else {
                 rwheel.setPower(0);
                 lwheel.setPower(0);
@@ -142,7 +143,7 @@ public class brandonsTeleOp extends LinearOpMode {
 
 
             if (gamepad2.x) {
-                intake.setPower(-.15);
+                intake.setPower(-.5);
             } else {
                 intake.setPower(0);
             }
