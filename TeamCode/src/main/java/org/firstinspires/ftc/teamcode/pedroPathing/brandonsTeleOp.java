@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -16,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class brandonsTeleOp extends LinearOpMode {
     DcMotor fr,fl,bl,br; //chasis
 
-    DcMotor lwheel, rwheel, intake; //mechanism
+    DcMotor lwheel, rwheel, intake ; //mechanism
     //CRServo lspin, rspin;// mechanism
     Servo rstopper;//mechanism
 
@@ -36,13 +37,15 @@ public class brandonsTeleOp extends LinearOpMode {
 
         lwheel = hardwareMap.dcMotor.get("lwheel");// teal crown, 3 on expansion, motor
         rwheel = hardwareMap.dcMotor.get("rwheel");// pink bow, 2 on expansion, motor
-        intake = hardwareMap.dcMotor.get("intake");//1 on expansion, motor
+        intake = hardwareMap.dcMotor.get("intake");//0 on expansion, motor
+      //  intake2 = hardwareMap.dcMotor.get("intake");//0 on expansion, motor
         rstopper=hardwareMap.servo.get("rstopper");//0 on control, servo
 
 
         lwheel.setDirection(DcMotor.Direction.REVERSE);
         rwheel.setDirection(DcMotor.Direction.FORWARD);
-        intake.setDirection(DcMotor.Direction.FORWARD);
+        intake.setDirection(DcMotor.Direction.REVERSE);
+     //   intake2.setDirection(DcMotor.Direction.FORWARD);
         rstopper.setDirection(Servo.Direction.FORWARD);
 
      //   lspin = hardwareMap.crservo.get("lspin");
@@ -64,7 +67,8 @@ public class brandonsTeleOp extends LinearOpMode {
         fr.setDirection(DcMotor.Direction.FORWARD);
         fl.setDirection(DcMotor.Direction.REVERSE);
         br.setDirection(DcMotor.Direction.FORWARD);
-        bl.setDirection(DcMotor.Direction.FORWARD);
+        bl.setDirection(DcMotor.Direction.REVERSE);
+
 
         Deadline gamepadRateLimit = new Deadline(500, TimeUnit.MILLISECONDS);
 
@@ -137,15 +141,21 @@ public class brandonsTeleOp extends LinearOpMode {
 
             if (gamepad2.y) {
                 intake.setPower(1);
+//intake2.setPower(1);
             } else {
                 intake.setPower(0);
+               // intake2.setPower(0);
             }
 
 
             if (gamepad2.x) {
-                intake.setPower(-.5);
+                intake.setPower(-1);
+              //  intake2.setPower(-1);
             } else {
                 intake.setPower(0);
+
+
+                //intake2.setPower(0);
             }
 
             if (gamepad2.b) {

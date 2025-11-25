@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
@@ -13,6 +14,7 @@ public class test extends OpMode {
    // Servo lscoop, rscoop; //270 degrees
     //CRServo lspin, rspin; //360 degrees
     DcMotor lwheel, rwheel, intake;
+    //DcMotor lift;
 
     Servo rstopper;
     //rscooper;
@@ -25,11 +27,13 @@ public class test extends OpMode {
         lwheel = hardwareMap.dcMotor.get("lwheel");
         rwheel = hardwareMap.dcMotor.get("rwheel");
         intake = hardwareMap.dcMotor.get("intake");
+        //lift = hardwareMap.dcMotor.get("lift");
 
 
         lwheel.setDirection(DcMotor.Direction.REVERSE);
         rwheel.setDirection(DcMotor.Direction.FORWARD);
-        intake.setDirection(DcMotor.Direction.FORWARD);
+        intake.setDirection(DcMotor.Direction.REVERSE);
+        //lift.setDirection(DcMotor.Direction.REVERSE);
 
 
         rstopper=hardwareMap.servo.get("rstopper");
@@ -94,8 +98,8 @@ public class test extends OpMode {
 
 */
       if (gamepad2.a) {
-          rwheel.setPower(1);
-          lwheel.setPower(1);
+          rwheel.setPower(.725);
+          lwheel.setPower(.725);
           telemetry.log().add(String.valueOf(rwheel.getController().getMotorPower(3)));
           //telemetry.log().add(String.valueOf(rwheel.getPowerFloat()));
           //System.out.println(rwheel.getPowerFloat());
@@ -117,14 +121,14 @@ public class test extends OpMode {
 */
 
       if (gamepad2.y) {
-          intake.setPower(1);
+          intake.setPower(-1);
       } else {
           intake.setPower(0);
       }
 
 
         if (gamepad2.x) {
-            intake.setPower(-.40);
+            intake.setPower(1);
         } else {
             intake.setPower(0);
         }

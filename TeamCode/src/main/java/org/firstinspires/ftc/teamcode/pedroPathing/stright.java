@@ -2,8 +2,9 @@ package org.firstinspires.ftc.teamcode.pedroPathing;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name = "stright")
+@Autonomous(name = "straight")
 public class stright extends LinearOpMode {
 
     DcMotor fr;
@@ -24,8 +25,14 @@ public class stright extends LinearOpMode {
             bl=hardwareMap.dcMotor.get("bl");
             br=hardwareMap.dcMotor.get("br");
             fl=hardwareMap.dcMotor.get("fl");
+
+            fr.setDirection(DcMotorSimple.Direction.FORWARD);
+            bl.setDirection(DcMotorSimple.Direction.REVERSE);
+            br.setDirection(DcMotorSimple.Direction.FORWARD);
+            fl.setDirection(DcMotorSimple.Direction.REVERSE);
+
             waitForStart();
-            fl.setPower(-0.35);
+            fl.setPower(0.35);
             bl.setPower(0.35);
             fr.setPower(0.35);
             br.setPower(0.35);
