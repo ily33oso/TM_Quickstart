@@ -76,8 +76,8 @@ public class brandonsTeleOp extends LinearOpMode {
         IMU imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
-                RevHubOrientationOnRobot.UsbFacingDirection.UP));
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
 
@@ -128,18 +128,18 @@ public class brandonsTeleOp extends LinearOpMode {
 */
 
             if (gamepad2.a) {
-                rwheel.setPower(.8);
+                rwheel.setPower(.725);
 
                 telemetry.log().add(String.valueOf(rwheel.getController().getMotorPower(3)));
                 //telemetry.log().add(String.valueOf(rwheel.getPowerFloat()));
                 //System.out.println(rwheel.getPowerFloat());
-                lwheel.setPower(.8);
+                lwheel.setPower(.725);
             } else {
                 rwheel.setPower(0);
                 lwheel.setPower(0);
             }
 
-            if (gamepad2.y) {
+            if (gamepad2.x) {
                 intake.setPower(1);
 //intake2.setPower(1);
             } else {
@@ -148,7 +148,7 @@ public class brandonsTeleOp extends LinearOpMode {
             }
 
 
-            if (gamepad2.x) {
+            if (gamepad2.y) {
                 intake.setPower(-1);
               //  intake2.setPower(-1);
             } else {

@@ -33,6 +33,7 @@ public class test extends OpMode {
         lwheel.setDirection(DcMotor.Direction.REVERSE);
         rwheel.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(DcMotor.Direction.REVERSE);
+
         //lift.setDirection(DcMotor.Direction.REVERSE);
 
 
@@ -120,17 +121,23 @@ public class test extends OpMode {
 
 */
 
-      if (gamepad2.y) {
-          intake.setPower(-1);
-      } else {
-          intake.setPower(0);
-      }
-
-
         if (gamepad2.x) {
             intake.setPower(1);
+//intake2.setPower(1);
         } else {
             intake.setPower(0);
+            // intake2.setPower(0);
+        }
+
+
+        if (gamepad2.y) {
+            intake.setPower(-1);
+            //  intake2.setPower(-1);
+        } else {
+            intake.setPower(0);
+
+
+            //intake2.setPower(0);
         }
 
 
