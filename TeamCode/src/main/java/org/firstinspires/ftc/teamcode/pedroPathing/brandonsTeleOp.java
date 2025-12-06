@@ -128,38 +128,47 @@ public class brandonsTeleOp extends LinearOpMode {
 */
 
             if (gamepad2.a) {
-                rwheel.setPower(.725);
+                rwheel.setPower(.75);//for regular teleop use .825 for consitent shooing but for auto .75
 
                 telemetry.log().add(String.valueOf(rwheel.getController().getMotorPower(3)));
                 //telemetry.log().add(String.valueOf(rwheel.getPowerFloat()));
                 //System.out.println(rwheel.getPowerFloat());
-                lwheel.setPower(.725);
+                lwheel.setPower(.75);
             } else {
                 rwheel.setPower(0);
                 lwheel.setPower(0);
             }
 
-            if (gamepad2.x) {
-                intake.setPower(1);
+            //if (gamepad2.x) {
+                //intake.setPower(1);
 //intake2.setPower(1);
-            } else {
-                intake.setPower(0);
+            //} else {
+             //   intake.setPower(0);
                // intake2.setPower(0);
-            }
+           // }
 
 
-            if (gamepad2.y) {
-                intake.setPower(-1);
+            //if (gamepad2.y) {
+              //  intake.setPower(-1);
               //  intake2.setPower(-1);
-            } else {
-                intake.setPower(0);
+           // } else {
+             //   intake.setPower(0);
 
 
                 //intake2.setPower(0);
+           // }
+            if (gamepad2.x) {
+                intake.setPower(1);    // forward
+            } else if (gamepad2.y) {
+                intake.setPower(-1);    // reverse
+            } else {
+                intake.setPower(0);     // idle
             }
 
+
+
             if (gamepad2.b) {
-                rstopper.setPosition(.70);
+                rstopper.setPosition(.575);
 
             } else {
                 rstopper.setPosition(0);
@@ -170,5 +179,6 @@ public class brandonsTeleOp extends LinearOpMode {
         }
     }
 }
+
 
 
