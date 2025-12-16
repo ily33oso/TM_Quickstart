@@ -25,7 +25,7 @@ public class teleyteley extends LinearOpMode {
 
     // ---------------- INTAKE TOGGLE ----------------
     boolean intakeOn = false;
-    boolean intakeForward = true;
+    boolean intakeOpposite = true;
     boolean xWasPressed = false;
     boolean yWasPressed = false;
 
@@ -36,7 +36,7 @@ public class teleyteley extends LinearOpMode {
     final int MIN_TICKS = 0;
 
     final double UP_POWER = 1.0;
-    final double DOWN_POWER = -1.0;
+    final double DOWN_POWER = -75.0;
 
     @Override
     public void runOpMode() {
@@ -127,13 +127,13 @@ public class teleyteley extends LinearOpMode {
             xWasPressed = gamepad2.x;
 
             if (gamepad2.y && !yWasPressed) {
-                intakeForward = !intakeForward;
+                intakeOpposite = !intakeOpposite;
                 sleep(120);
             }
             yWasPressed = gamepad2.y;
 
             if (intakeOn) {
-                intake.setPower(intakeForward ? 0.5 : -0.75);
+                intake.setPower(intakeOpposite ? 0.5 : -0.75);
             } else {
                 intake.setPower(0);
             }
