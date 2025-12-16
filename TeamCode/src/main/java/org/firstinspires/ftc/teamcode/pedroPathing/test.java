@@ -13,7 +13,7 @@ public class test extends OpMode {
    // DcMotor fr, fl, br, bl;
    // Servo lscoop, rscoop; //270 degrees
     //CRServo lspin, rspin; //360 degrees
-    DcMotor lwheel, rwheel, intake;
+    DcMotor lwheel, rwheel, intake, lift;
     //DcMotor lift;
 
     Servo rstopper;
@@ -27,14 +27,13 @@ public class test extends OpMode {
         lwheel = hardwareMap.dcMotor.get("lwheel");
         rwheel = hardwareMap.dcMotor.get("rwheel");
         intake = hardwareMap.dcMotor.get("intake");
-        //lift = hardwareMap.dcMotor.get("lift");
+        lift = hardwareMap.dcMotor.get("lift");
 
 
         lwheel.setDirection(DcMotor.Direction.REVERSE);
         rwheel.setDirection(DcMotor.Direction.FORWARD);
         intake.setDirection(DcMotor.Direction.REVERSE);
-
-        //lift.setDirection(DcMotor.Direction.REVERSE);
+        lift.setDirection(DcMotor.Direction.FORWARD);
 
 
         rstopper=hardwareMap.servo.get("rstopper");

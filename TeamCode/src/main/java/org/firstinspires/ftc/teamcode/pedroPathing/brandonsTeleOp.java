@@ -4,7 +4,6 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -23,8 +22,15 @@ public class brandonsTeleOp extends LinearOpMode {
 
 
     //Servo lscoop,rscoop;
-    BNO055IMU imu;
+   // BNO055IMU imu;
     //BN0055IMUNew imu;
+
+    boolean intakeOn = false;
+    boolean intakeForward = true;
+
+    boolean xWasPressed = false;
+    boolean yWasPressed = false;
+
 
     @Override
     public void runOpMode() {
@@ -108,67 +114,48 @@ public class brandonsTeleOp extends LinearOpMode {
             fr.setPower(((adjustedLy + adjustedLx - rx) / max) * drivePower);
             fl.setPower(((adjustedLy - adjustedLx + rx) / max) * drivePower);
             //what the sigma - Joel
-/*
-            if (gamepad2.b) {
-                rscoop.setPosition(.70);
-                lscoop.setPosition(.75);
-            } else {
-                rscoop.setPosition(0);
-                lscoop.setPosition(0);
-            }
-*/
-/*
-            if (gamepad2.b) {
-                lspin.setPower(1);
-                rspin.setPower(1);
-            } else {
-                lspin.setPower(0);
-                rspin.setPower(0);
-            }
-*/
+
 
             if (gamepad2.a) {
-                rwheel.setPower(.75);//for regular teleop use .825 for consitent shooing but for auto .75
+                rwheel.setPower(.775);//for regular teleop use .825 for consitent shooing but for auto .75
 
-                telemetry.log().add(String.valueOf(rwheel.getController().getMotorPower(3)));
-                //telemetry.log().add(String.valueOf(rwheel.getPowerFloat()));
-                //System.out.println(rwheel.getPowerFloat());
-                lwheel.setPower(.75);
+                /*telemetry.log().add(String.valueOf(rwheel.getController().getMotorPower(3)));
+                telemetry.log().add(String.valueOf(rwheel.getPowerFloat()));
+                System.out.println(rwheel.getPowerFloat());
+                 */
+                lwheel.setPower(.775);
             } else {
                 rwheel.setPower(0);
                 lwheel.setPower(0);
             }
 
-            //if (gamepad2.x) {
-                //intake.setPower(1);
-//intake2.setPower(1);
-            //} else {
-             //   intake.setPower(0);
-               // intake2.setPower(0);
-           // }
 
 
-            //if (gamepad2.y) {
-              //  intake.setPower(-1);
-              //  intake2.setPower(-1);
-           // } else {
-             //   intake.setPower(0);
+            if (gamepad2.x && !xWasPressed) {
+                intakeOn = !intakeOn;
+            }
+            xWasPressed = gamepad2.x;
+
+// Y toggles direction
+            if (gamepad2.y && !yWasPressed) {
+                intakeForward = !intakeForward;
+            }
+            yWasPressed = gamepad2.y;
 
 
-                //intake2.setPower(0);
-           // }
-            if (gamepad2.x) {
-                intake.setPower(1);    // forward
-            } else if (gamepad2.y) {
-                intake.setPower(-1);    // reverse
+// --- Apply intake power ---
+            if (intakeOn) {
+                if (intakeForward) {
+                    intake.setPower(.5);      // forward
+                } else {
+                    intake.setPower(-.75);     // reverse
+                }
             } else {
-                intake.setPower(0);     // idle
+                intake.setPower(0);          // off
             }
 
-
-
             if (gamepad2.b) {
-                rstopper.setPosition(.575);
+                rstopper.setPosition(.57);
 
             } else {
                 rstopper.setPosition(0);
