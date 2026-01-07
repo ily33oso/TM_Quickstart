@@ -13,15 +13,27 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp
 public class teleyteley extends LinearOpMode {
 
-    // ---------------- CHASSIS ----------------
+    // ---------------- CHASSIS [control hub] ----------------
     DcMotor fr, fl, bl, br;
+    // port 0 = fl
+    // port 1 = br
+    // port 2 = bl
+    // port 3 = fr
 
-    // ---------------- MECHANISMS ----------------
+    // ---------------- MECHANISMS [expansion hub] ----------------
     DcMotor lwheel, rwheel, intake, lift;
-    Servo rstopper;
+    //port 0 = lift
+    //port 1 = inake
+    //port 2 = lwheel
+    //port 3 = rwheel
 
-    // ---------------- IMU ----------------
+    Servo rstopper;
+    // port 0 = rstopper
+    // port 5 = lever
+
+    // ---------------- IMU [control hub]----------------
     IMU imu;
+    //I2C Bus 0  - BNO055, port 0 = imu
 
     // ---------------- INTAKE TOGGLE ----------------
     boolean intakeOn = false;
@@ -29,14 +41,18 @@ public class teleyteley extends LinearOpMode {
     boolean xWasPressed = false;
     boolean yWasPressed = false;
 
+    // ---------------- OUTTAKE TOGGLE ----------------
+    boolean shooterOn = false;
+    boolean aWasPressed = false;
+
     // ---------------- LIFT CONSTANTS ----------------
     final double TICKS_PER_MM = 48.0625;
-    final double MAX_MM = 291.28738622;
+    final double MAX_MM = 285.04551365;
     final int MAX_TICKS = (int)(TICKS_PER_MM * MAX_MM);
     final int MIN_TICKS = 0;
 
     final double UP_POWER = 1.0;
-    final double DOWN_POWER = -75.0;
+    final double DOWN_POWER = -0.75;
 
     @Override
     public void runOpMode() {
@@ -111,13 +127,23 @@ public class teleyteley extends LinearOpMode {
             if (gamepad1.y) imu.resetYaw();
 
             // ---------- SHOOTER ----------
-            if (gamepad2.a) {
-                rwheel.setPower(0.78);
-                lwheel.setPower(0.78);
+            // ---------- SHOOTER ----------
+            if (gamepad2.a && !aWasPressed) {
+                shooterOn = !shooterOn;
+                sleep(120); // debounce
+            }
+            aWasPressed = gamepad2.a;
+
+            if (shooterOn) {
+                rwheel.setPower(0.775);
+                lwheel.setPower(0.775);
             } else {
                 rwheel.setPower(0);
                 lwheel.setPower(0);
             }
+            telemetry.addData("Shooter On", shooterOn);
+            telemetry.addData("A Pressed", gamepad2.a);
+
 
             // ---------- INTAKE TOGGLE ----------
             if (gamepad2.x && !xWasPressed) {
@@ -139,7 +165,7 @@ public class teleyteley extends LinearOpMode {
             }
 
             // ---------- STOPPER ----------
-            rstopper.setPosition(gamepad2.b ? 0.57 : 0);
+            rstopper.setPosition(gamepad2.b ? 0.47 : 0);
 
             // ---------- LIFT CONTROL (ONLY WHEN PRESSED) ----------
             int pos = lift.getCurrentPosition();

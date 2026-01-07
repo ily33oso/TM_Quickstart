@@ -10,12 +10,12 @@ public class LiftControl_OnlyWhenPressed extends LinearOpMode {
 
     // ---- CONSTANTS FOR 5203 (435 RPM) + 8MM LEADSCREW ----
     final double TICKS_PER_MM = 48.0625;             // 384.5 PPR / 8mm pitch
-    final double MAX_MM = 291.28738622;                     // 12 inches
+    final double MAX_MM = 285.04551365;                     // 11.2353706 inches
     final int MAX_TICKS = (int)(TICKS_PER_MM * MAX_MM); // = 14649
     final int MIN_TICKS = 0;
 
     final double UP_POWER   = 1.0;   // speed going up
-    final double DOWN_POWER = -1.0;  // speed going down
+    final double DOWN_POWER = -0.75;  // speed going down
 
     DcMotor lift;
 

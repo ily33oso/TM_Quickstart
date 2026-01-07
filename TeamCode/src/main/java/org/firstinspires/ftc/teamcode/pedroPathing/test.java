@@ -12,11 +12,13 @@ public class test extends OpMode {
 
    // DcMotor fr, fl, br, bl;
    // Servo lscoop, rscoop; //270 degrees
+
     //CRServo lspin, rspin; //360 degrees
     DcMotor lwheel, rwheel, intake, lift;
     //DcMotor lift;
 
     Servo rstopper;
+    Servo bootyhole;
     //rscooper;
 
 
@@ -37,10 +39,12 @@ public class test extends OpMode {
 
 
         rstopper=hardwareMap.servo.get("rstopper");
+        bootyhole = hardwareMap.servo.get("bootyhole");
       //  rscooper=hardwareMap.servo.get("rscooper");//1
 
 
         rstopper.setDirection(Servo.Direction.FORWARD);
+        bootyhole.setDirection(Servo.Direction.FORWARD);
 //rscooper.setDirection(Servo.Direction.REVERSE);
 
 
@@ -78,8 +82,15 @@ public class test extends OpMode {
     */
 
 
+        if (gamepad2.left_bumper) {
+            bootyhole.setPosition(.47);
+        } else {
+            bootyhole.setPosition(0);
+        }
+
+
         if (gamepad2.b) {
-            rstopper.setPosition(.70);
+            rstopper.setPosition(.47);
 
         } else {
             rstopper.setPosition(0);
@@ -138,6 +149,8 @@ public class test extends OpMode {
 
             //intake2.setPower(0);
         }
+
+
 
 
 

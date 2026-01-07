@@ -28,6 +28,8 @@ public class fixedTeleop extends LinearOpMode {
     boolean intakeForward = true;
     boolean xWasPressed = false;
     boolean yWasPressed = false;
+    boolean shooterOn = false;
+    boolean aWasPressed = false;
 
     @Override
     public void runOpMode() {
@@ -97,13 +99,32 @@ public class fixedTeleop extends LinearOpMode {
             }
 
             // ---------- SHOOTER ----------
+            /*
             if (gamepad2.a) {
-                rwheel.setPower(0.78);
-                lwheel.setPower(0.78);
+                rwheel.setPower(0.80);
+                lwheel.setPower(.80);
             } else {
                 rwheel.setPower(0);
                 lwheel.setPower(0);
             }
+
+             */
+            // Toggle shooter with gamepad2.a
+            if (gamepad2.a && !aWasPressed) {
+                shooterOn = !shooterOn;   // flip ON/OFF
+            }
+
+            aWasPressed = gamepad2.a;
+
+// Apply power based on toggle state
+            if (shooterOn) {
+                rwheel.setPower(0.80);
+                lwheel.setPower(0.80);
+            } else {
+                rwheel.setPower(0);
+                lwheel.setPower(0);
+            }
+
 
             // ----------- INTAKE TOGGLE SYSTEM -----------
             // X toggles intake ON/OFF

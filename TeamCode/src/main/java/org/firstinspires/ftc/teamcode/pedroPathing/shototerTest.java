@@ -18,6 +18,7 @@ public class shototerTest extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+
             rwheel.setPower(0.75);
             lwheel.setPower(0.75);
 
