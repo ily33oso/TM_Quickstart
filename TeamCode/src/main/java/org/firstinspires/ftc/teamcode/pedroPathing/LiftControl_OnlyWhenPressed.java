@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.pedroPathing;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+@Disabled
 @TeleOp(name="LiftControl_OnlyWhenPressed")
 public class LiftControl_OnlyWhenPressed extends LinearOpMode {
 

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp
+@TeleOp (group = "Test")
 public class test extends OpMode {
 
    // DcMotor fr, fl, br, bl;
@@ -17,8 +17,9 @@ public class test extends OpMode {
     DcMotor lwheel, rwheel, intake, lift;
     //DcMotor lift;
 
-    Servo rstopper;
-    Servo bootyhole;
+    Servo rstopper, lstopper;
+    Servo lever;
+    Servo compressor;
     //rscooper;
 
 
@@ -39,12 +40,16 @@ public class test extends OpMode {
 
 
         rstopper=hardwareMap.servo.get("rstopper");
-        bootyhole = hardwareMap.servo.get("bootyhole");
+        lstopper=hardwareMap.servo.get("lstopper");
+        lever = hardwareMap.servo.get("lever");
+        compressor = hardwareMap.servo.get("compressor");
       //  rscooper=hardwareMap.servo.get("rscooper");//1
 
 
-        rstopper.setDirection(Servo.Direction.FORWARD);
-        bootyhole.setDirection(Servo.Direction.FORWARD);
+        rstopper.setDirection(Servo.Direction.REVERSE);
+        lstopper.setDirection(Servo.Direction.FORWARD);
+        lever.setDirection(Servo.Direction.FORWARD);
+        compressor.setDirection(Servo.Direction.REVERSE);
 //rscooper.setDirection(Servo.Direction.REVERSE);
 
 
@@ -83,19 +88,32 @@ public class test extends OpMode {
 
 
         if (gamepad2.left_bumper) {
-            bootyhole.setPosition(.47);
+            lever.setPosition(.47);
         } else {
-            bootyhole.setPosition(0);
+            lever.setPosition(0);
         }
 
 
         if (gamepad2.b) {
-            rstopper.setPosition(.47);
+            rstopper.setPosition(.24);
+            lstopper.setPosition(.24);
 
         } else {
             rstopper.setPosition(0);
+            lstopper.setPosition(0);
 
         }
+
+        /*
+        if (gamepad2.right_bumper){
+            compressor.setPosition(.47);
+        } else {
+            compressor.setPosition(0);
+        }
+
+
+         */
+
 
 /*
         if (gamepad2.left_bumper) {
@@ -133,21 +151,14 @@ public class test extends OpMode {
 
         if (gamepad2.x) {
             intake.setPower(1);
-//intake2.setPower(1);
+        } else if (gamepad2.y) {
+            intake.setPower(-1);
         } else {
             intake.setPower(0);
-            // intake2.setPower(0);
         }
 
 
-        if (gamepad2.y) {
-            intake.setPower(-1);
-            //  intake2.setPower(-1);
-        } else {
-            intake.setPower(0);
 
-
-            //intake2.setPower(0);
         }
 
 
@@ -158,4 +169,3 @@ public class test extends OpMode {
 
 
     }
-}

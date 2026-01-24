@@ -26,10 +26,10 @@ public class stright extends LinearOpMode {
             br=hardwareMap.dcMotor.get("br");
             fl=hardwareMap.dcMotor.get("fl");
 
-            fr.setDirection(DcMotorSimple.Direction.FORWARD);
-            bl.setDirection(DcMotorSimple.Direction.REVERSE);
-            br.setDirection(DcMotorSimple.Direction.FORWARD);
-            fl.setDirection(DcMotorSimple.Direction.REVERSE);
+            fr.setDirection(DcMotorSimple.Direction.REVERSE);
+            bl.setDirection(DcMotorSimple.Direction.FORWARD);
+            br.setDirection(DcMotorSimple.Direction.REVERSE);
+            fl.setDirection(DcMotorSimple.Direction.FORWARD);
 
             waitForStart();
             fl.setPower(0.35);
