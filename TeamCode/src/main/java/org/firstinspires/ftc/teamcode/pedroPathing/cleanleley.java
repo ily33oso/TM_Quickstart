@@ -32,8 +32,8 @@ public class cleanleley extends LinearOpMode {
 
     // ================= FLYWHEEL CONSTANTS =================
     final double TICKS_PER_REV = 537.7;
-    final double TARGET_RPM = 215;
-    final double SMALL_TARGET_RPM = 250;
+    final double TARGET_RPM = 170; //215 original 190 is good 170 okay 160 not that good 165 is meh  stick with 170 for now
+    final double SMALL_TARGET_RPM = 216; //250 original 225 is a bit to much power 215 really consistent with 2 artifacts
     double targetVelocity, smallTargetVelocity;
 
     // ================= INTAKE PID CONSTANTS =================
@@ -147,8 +147,8 @@ public class cleanleley extends LinearOpMode {
 
             // ================= STOPPER =================
             if (gamepad2.right_bumper) {
-                rstopper.setPosition(0.17);
-                lstopper.setPosition(0.17);
+                rstopper.setPosition(.23);
+                lstopper.setPosition(.23);
             } else {
                 rstopper.setPosition(0);
                 lstopper.setPosition(0);
